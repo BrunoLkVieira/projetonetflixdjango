@@ -1,0 +1,268 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head %}
+    <style>
+        img {
+          display: block;
+          max-width: 100%;
+          max-height: 100%;
+        }
+        $itemGrow: 1.2;
+        $duration: 250ms;
+
+        html {
+          scroll-behavior: smooth;
+        }
+
+        body {
+          margin: 0;
+          background-color: #000;
+        }
+
+        h1 {
+          font-family: Arial;
+          color: red;
+          text-align: center;
+        }
+
+        .wrapper {
+          display: grid;
+          grid-template-columns: repeat(3,100%);
+          overflow:hidden;
+          scroll-behavior: smooth;
+
+          section {
+            width: 100%;
+            position: relative;
+            display: grid;
+            grid-template-columns: repeat(5, auto);
+            margin: 20px 0;
+
+            .item {
+              padding: 0 2px;
+              transition: $duration all;
+
+              &:hover {
+                margin: 0 40px;
+                transform: scale(1.2);
+              }
+
+            }
+
+            a {
+              position: absolute;
+              color: #fff;
+              text-decoration: none;
+              font-size: 6em;
+              background:rgb(0,0,0);
+              width: 80px;
+              padding: 20px;
+              text-align: center;
+              z-index: 1;
+
+              &:nth-of-type(1) {
+                top:0; bottom:0; left:0;
+                background: linear-gradient(-90deg, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 100%);
+              }
+              &:nth-of-type(2) {
+                top:0; bottom:0; right: 0;
+                background: linear-gradient(90deg, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 100%);
+              }
+
+            }
+
+          }
+        }
+
+        // Remove the arrow for Mobile
+        @media only screen and (max-width: 600px) {
+          a.arrow__btn {
+            display:none;
+          }
+
+
+
+    </style>
+
+{% endblock %}
+
+
+
+{% block body %}
+
+    <main class='bg-primary_black min-h-screen w-full'>
+        <section class="max-w-none h-screen relative bg-no-repeat pb-8 pl-3 flex items-end bg-cover" style="background-image: url('{{ lista_filmes_recentes.first.thumb.url }}'); ">
+            <div>
+                <h2 class="text-6xl font-semibold text-white my-6">
+                    {{ lista_filmes_recentes.first.titulo }}
+
+                </h2>
+                <p class=" w-11/12 md:w-5/12 font-medium text-white my-6">
+                </p>
+                <div class="flex my-4">
+                    <a href="{{ lista_filmes_recentes.first.pk }}">
+                        <button class="flex items-center bg-white py-2 px-5 rounded-md" style='color:black;'>
+                            <ion-icon name="play" class="text-2xl"></ion-icon>
+                            <span class="ml-3 font-medium " >
+                                Play
+                            </span>
+                        </button>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        
+        
+        
+        <section class='bg-primary_black flex justify-center py-10'>
+            <div class="p-8 w-10/12 relative" >
+                <h2 class="text-gray-200 text-2xl font-medium">
+                    ULTIMOS LANÇAMENTOS
+                </h2>
+                <div class="wrapper">
+
+                  <section id="section1" class="flex flex-nowrap items-center justify-center space-x-8">
+                    <a href="#section2" class="arrow__btn text-6xl page">‹</a>
+                      {% for filme in lista_filmes_recentes %}
+                      {% if forloop.counter < 5 %}
+                      <div class="item h-64 w-1/4 m-4">
+                          <a href="{{ filme.pk }}">
+                            <img src="{{ filme.thumb.url }}" class="thumbnail img-responsive rounded-md w-full h-full object-cover">
+                          </a>
+                      </div>
+                      {% endif %}
+                      {% endfor %}
+                        <a href="#section2" class="arrow__btn text-6xl">›</a>
+                  </section>
+
+
+                      {% if lista_filmes_recentes|length > 4 %}
+                      <section id="section2" class="flex flex-nowrap items-center justify-center">
+                        <a href="#section1" class="arrow__btn text-6xl">‹</a>
+                        {% for filme in lista_filmes_recentes %}
+                          {% if forloop.counter > 4 %}
+                              <div class="item h-64 w-1/4 m-4">
+                                  <a href="{{ filme.pk }}">
+                                    <img src="{{ filme.thumb.url }}" class="rounded-md w-full h-full object-cover">
+                                  </a>
+                              </div>
+                          {% endif %}
+                        {% endfor %}
+                        <a href="#section1" class="arrow__btn text-6xl">›</a>
+                      </section>
+
+                      {% endif %}
+
+                </div>
+            </div>
+        </section>
+
+
+        
+        <section class='bg-primary_black flex justify-center py-10'>
+            <div class="p-8 w-10/12 relative" >
+                <h2 class="text-gray-200 text-2xl font-medium">
+                    EM ALTA
+                </h2>
+                <div class="wrapper">
+
+                  <section id="section1_emalta" class="flex flex-nowrap items-center justify-center space-x-8">
+                    <a href="#section2_emalta" class="arrow__btn text-6xl page">‹</a>
+                      {% for filme in lista_filme_emalta %}
+                      {% if forloop.counter < 5 %}
+                      <div class="item h-64 w-1/4 m-4">
+                          <a href="{{ filme.pk }}">
+                            <img src="{{ filme.thumb.url }}" class="rounded-md w-full h-full object-cover">
+                          </a>
+                      </div>
+                      {% endif %}
+                      {% endfor %}
+                        <a href="#section2_emalta" class="arrow__btn text-6xl">›</a>
+                  </section>
+
+
+                      {% if lista_filme_emalta|length > 4 %}
+                      <section id="section2_emalta" class="flex flex-nowrap items-center justify-center">
+                        <a href="#section1_emalta" class="arrow__btn text-6xl">‹</a>
+                        {% for filme in lista_filme_emalta %}
+                          {% if forloop.counter > 4 %}
+                              <div class="item h-64 w-1/4 m-4">
+                                  <a href="{{ filme.pk }}">
+                                    <img src="{{ filme.thumb.url }}" class="rounded-md w-full h-full object-cover">
+                                  </a>
+                              </div>
+                          {% endif %}
+                        {% endfor %}
+                        <a href="#section1_emalta" class="arrow__btn text-6xl">›</a>
+                      </section>
+
+                      {% endif %}
+
+                </div>
+            </div>
+        </section>
+        
+        
+        
+        <section class='bg-primary_black flex justify-center py-10'>
+            <div class="p-8 w-10/12 relative" >
+                <h2 class="text-gray-200 text-2xl font-medium">
+                    CONTINUAR ASSISTINDO
+                </h2>
+                <div class="wrapper">
+
+                  <section id="section1_visto" class="flex flex-nowrap items-center justify-center space-x-8">
+                    <a href="#section2_visto" class="arrow__btn text-6xl page">‹</a>
+                      {% for filme in request.user.filmes_vistos.all %}
+                      {% if forloop.counter < 5 %}
+                      <div class="item h-64 w-1/4 m-4">
+                          <a href="{{ filme.pk }}">
+                            <img src="{{ filme.thumb.url }}" class="rounded-md w-full h-full object-cover">
+                          </a>
+                      </div>
+                      {% endif %}
+                      {% endfor %}
+                        <a href="#section2_visto" class="arrow__btn text-6xl">›</a>
+                  </section>
+
+
+                      {% if request.user.filmes_vistos.all|length > 4 %}
+                      <section id="section2_visto" class="flex flex-nowrap items-center justify-center">
+                        <a href="#section1_visto" class="arrow__btn text-6xl">‹</a>
+                        {% for filme in request.user.filmes_vistos.all %}
+                          {% if forloop.counter > 4 %}
+                              <div class="item h-64 w-1/4 m-4">
+                                  <a href="{{ filme.pk }}">
+                                    <img src="{{ filme.thumb.url }}" class="rounded-md w-full h-full object-cover">
+                                  </a>
+                              </div>
+                          {% endif %}
+                        {% endfor %}
+                        <a href="#section1_visto" class="arrow__btn text-6xl">›</a>
+                      </section>
+
+                      {% endif %}
+
+                </div>
+            </div>
+        </section>
+        
+        
+        
+
+        
+    </main>
+
+    <footer class="bg-black px-5 py-10 ">
+        <ul class="text-slate-400 flex justify-between items-center">
+
+            <li>&copy; 2023</li>
+            <li> Feito com Python (Django)</li>
+            <li>Bruno LK. Vieira</li>
+        </ul>
+    </footer>
+
+
+{% endblock %}

@@ -1,0 +1,29 @@
+
+
+- HomePage
+
+----------------------------------------------------------------
+
+- Usuario:
+    - username
+    - email
+    - senha
+    - filmes ja assistidos
+    - editar perfil
+
+----------------------------------------------------------------
+
+- Filmes/ series:
+    - thumb
+    - titulo
+    - descrição
+    - categoria
+    - data
+    - Episodio:
+        - filme relacionado
+        - Titulo
+        - video(link)
+
+----------------------------------------------------------------
+
+- barra de pesquisa
