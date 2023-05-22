@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from .models import Filme
-from django.views.generic import TemplateView, ListView, DetailView
+from .forms import CriarContaForm
+from django.views.generic import TemplateView, ListView, DetailView, FormView
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 
@@ -75,5 +76,6 @@ class editarperfil(LoginRequiredMixin, TemplateView):
     template_name = "editarperfil.html"
 
 
-class criarconta(TemplateView):
+class criarconta(FormView):
     template_name = "criarconta.html"
+    form_class = CriarContaForm
