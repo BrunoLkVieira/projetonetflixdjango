@@ -3,10 +3,12 @@
 
 {% block head %}
     <style>
+
         img {
           display: block;
           max-width: 100%;
           max-height: 100%;
+
         }
         $itemGrow: 1.2;
         $duration: 250ms;
@@ -92,7 +94,7 @@
 {% block body %}
 
     <main class='bg-primary_black min-h-screen w-full'>
-        <section class="max-w-none h-screen relative bg-no-repeat pb-8 pl-3 flex items-end bg-cover" style="background-image: url('{{ lista_filmes_recentes.first.thumb.url }}'); ">
+        <section id="back-g" class="max-w-none h-screen relative bg-no-repeat pb-8 pl-3 flex items-end bg-cover" style="background-image: url('{{ lista_filmes_recentes.first.thumb.url }}'); ">
             <div>
                 <h2 class="text-6xl font-semibold text-white my-6">
                     {{ lista_filmes_recentes.first.titulo }}
@@ -205,7 +207,7 @@
         </section>
         
         
-        
+
         <section class='bg-primary_black flex justify-center py-10'>
             <div class="p-8 w-10/12 relative" >
                 <h2 class="text-gray-200 text-2xl font-medium">
@@ -216,6 +218,7 @@
                   <section id="section1_visto" class="flex flex-nowrap items-center justify-center space-x-8">
                     <a href="#section2_visto" class="arrow__btn text-6xl page">‹</a>
                       {% for filme in request.user.filmes_vistos.all %}
+
                       {% if forloop.counter < 5 %}
                       <div class="item h-64 w-1/4 m-4">
                           <a href="{{ filme.pk }}">
@@ -248,8 +251,7 @@
                 </div>
             </div>
         </section>
-        
-        
+
         
 
         

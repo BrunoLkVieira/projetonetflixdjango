@@ -1,7 +1,7 @@
-from django.shortcuts import render, redirect
-from .models import Filme
-from .forms import CriarContaForm
-from django.views.generic import TemplateView, ListView, DetailView, FormView
+from django.shortcuts import render, redirect, reverse
+from .models import Filme, Usuario
+from .forms import CriarContaForm, HomePageForm
+from django.views.generic import TemplateView, ListView, DetailView, FormView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 
@@ -9,8 +9,9 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 # def homepage(request):
 #     return render(request, "homepage.html")
 
-class homepage(TemplateView):
+class homepage(FormView):
     template_name = "homepage.html"
+    form_class= HomePageForm
 
     def get(self, request, *args, **kwargs):
         if request.user.is_authenticated:
@@ -18,13 +19,18 @@ class homepage(TemplateView):
         else:
             return super().get(self, request, *args, **kwargs)
 
+    def get_success_url(self):
+        email = self.request.POST.get("email")
+        usuarios = Usuario.objects.filter(email=email)
+        if usuarios:
+            return reverse("filme:login")
+        else:
+            return reverse("filme:criarconta")
 
 
-# def filmepage(request):
-#     context = {}
-#     lista_filmes = Filme.objects.all()
-#     context["lista_filmes"] = lista_filmes
-#     return render(request, "filmepage.html", context)
+
+
+
 
 class filmepage(LoginRequiredMixin, ListView):
     template_name = "filmepage.html"
@@ -72,10 +78,24 @@ class pesquisafilme(LoginRequiredMixin, ListView):
     # object_list
 
 
-class editarperfil(LoginRequiredMixin, TemplateView):
+
+class editarperfil(LoginRequiredMixin, UpdateView):
     template_name = "editarperfil.html"
+    model = Usuario
+    fields = ["first_name", "last_name", "email" ]
+
+    def get_success_url(self):
+        return reverse("filme:filmepage")
+
 
 
 class criarconta(FormView):
     template_name = "criarconta.html"
     form_class = CriarContaForm
+
+    def form_valid(self, form):
+        form.save()
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse('filme:login')
