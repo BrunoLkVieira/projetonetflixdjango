@@ -1,4 +1,4 @@
-# projetonetflixdjango
+# Projeto Netflix (Django)
 
 -Tecnologias: Python(Django), HTML5, CSS3, Bootstrap, tailwind.
 
