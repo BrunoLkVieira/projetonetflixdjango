@@ -5,9 +5,10 @@
     <style>
 
         img {
+          width: 100%;
           display: block;
           max-width: 100%;
-          max-height: 100%;
+          height: auto;
 
         }
         $itemGrow: 1.2;
@@ -78,12 +79,16 @@
         }
 
         // Remove the arrow for Mobile
-        @media only screen and (max-width: 600px) {
+        @media only screen and (max-width: 500px) {
           a.arrow__btn {
+            width: 100%;
             display:none;
           }
-
-
+          section.div{
+            width:100%;
+            padding: 2px;
+          }
+        }
 
     </style>
 
@@ -94,7 +99,7 @@
 {% block body %}
 
     <main class='bg-primary_black min-h-screen w-full'>
-        <section id="back-g" class="max-w-none h-screen relative bg-no-repeat pb-8 pl-3 flex items-end bg-cover" style="background-image: url('{{ lista_filmes_recentes.first.thumb.url }}'); ">
+        <section id="back-g" class="max-w-none h-screen relative bg-no-repeat pb-8 pl-3 flex items-end bg-cover" style="background-image: url('{{ lista_filmes_recentes.first.thumb.url }} '); ">
             <div>
                 <h2 class="text-6xl font-semibold text-white my-6">
                     {{ lista_filmes_recentes.first.titulo }}
@@ -131,7 +136,7 @@
                       {% if forloop.counter < 5 %}
                       <div class="item h-64 w-1/4 m-4">
                           <a href="{{ filme.pk }}">
-                            <img src="{{ filme.thumb.url }}" class="thumbnail img-responsive rounded-md w-full h-full object-cover">
+                            <img src="{{ filme.thumb.url }}" class="img-fluid thumbnail img-responsive rounded-md w-full h-full object-cover">
                           </a>
                       </div>
                       {% endif %}

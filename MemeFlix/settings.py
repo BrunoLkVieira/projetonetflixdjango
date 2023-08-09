@@ -74,6 +74,7 @@ TEMPLATES = [
                 'filme.novos_context.lista_filmes_recentes',
                 'filme.novos_context.lista_filme_emalta',
 
+
             ],
         },
     },
@@ -85,7 +86,12 @@ WSGI_APPLICATION = 'MemeFlix.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+}
 
 import dj_database_url
 
@@ -95,13 +101,8 @@ if DATABASE_URL:
     DATABASES = {
         "default": dj_database_url.config(default=DATABASE_URL, conn_max_age=1800)
     }
-else:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': BASE_DIR / 'db.sqlite3',
-        }
-    }
+
+
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
