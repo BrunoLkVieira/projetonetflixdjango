@@ -1,5 +1,7 @@
 # Projeto Netflix (Django)
 
+video: https://www.youtube.com/watch?v=4gWyLVmClw0&t=114s
+
 -Tecnologias: Python(Django), HTML5, CSS3, Bootstrap, tailwind.
 
 -Descrição: 
